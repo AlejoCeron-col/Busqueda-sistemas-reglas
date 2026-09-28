@@ -1,3 +1,72 @@
+# ============================================================
+# SISTEMA INTELIGENTE PARA ENCONTRAR LA MEJOR RUTA
+# Sistema de transporte masivo basado en reglas lógicas
+# ============================================================
+
+# ------------------------------------------------------------
+# 1. BASE DE CONOCIMIENTO: 
+# ------------------------------------------------------------
+
+# Cada elemento representa una conexión entre dos estaciones.
+# Formato:
+# (origen, destino, tiempo_en_minutos, linea)
+
+rutas = [
+    ("1", "2", 8, "L1"),
+    ("2", "1", 8, "L1"),
+    ("2", "3", 6, "L1"),
+    ("3", "2", 6, "L1"),
+    ("3", "4", 10, "L1"),
+    ("4", "3", 10, "L1"),
+
+    ("1", "5", 12, "L2"),
+    ("5", "1", 12, "L2"),
+    ("5", "2", 7, "L2"),
+    ("2", "5", 7, "L2"),
+    ("2", "6", 9, "L2"),
+    ("6", "2", 9, "L2"),
+
+    ("6", "4", 8, "L3"),
+    ("4", "7", 15, "L3"),
+    ("4", "6", 8, "L3"),
+    ("3", "7", 12, "L4"),
+    ("7", "3", 12, "L4"),
+    ("7", "4", 15, "L4"),
+]
+
+
+# ------------------------------------------------------------
+# 2. REGLAS LÓGICAS: 
+# ------------------------------------------------------------
+
+def existe_conexion(origen, destino):
+    """
+    Regla:
+    Si existe una conexión directa entre dos estaciones,
+    entonces es posible desplazarse entre ellas.
+    """
+
+    for ruta in rutas:
+        if ruta[0] == origen and ruta[1] == destino:
+            return True
+
+    return False
+
+
+def obtener_conexiones(estacion):
+    """
+    Regla:
+    Una estación puede conectarse con todas las estaciones
+    que aparezcan como destino de una ruta.
+    """
+
+    conexiones = []
+
+    for ruta in rutas:
+        if ruta[0] == estacion:
+            conexiones.append(ruta)
+
+    return conexiones
 # ------------------------------------------------------------
 # 3. MOTOR DE INFERENCIA: DANIEL
 # ------------------------------------------------------------
